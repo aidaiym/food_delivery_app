@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../export_files.dart';
+import '../../basket/view/cart_view.dart';
 
 class TabNavigator extends StatelessWidget {
   const TabNavigator(
@@ -16,7 +17,7 @@ class TabNavigator extends StatelessWidget {
     } else if (tabItem == "Search") {
       child = const CategoryView();
     } else if (tabItem == "Basket") {
-      child = const CategoryView();
+      child = const BasketView();
     } else if (tabItem == "Account") {
       child = const CategoryView();
     }

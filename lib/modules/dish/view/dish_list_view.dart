@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:food_delivery_app/modules/basket/logic/cart_cubit.dart';
 import '../../../export_files.dart';
 
 class DishListView extends StatelessWidget {
@@ -26,8 +27,15 @@ class DishListView extends StatelessWidget {
           ),
         ],
       ),
-      body: BlocProvider(
-        create: (context) => DishCubit(DishService()),
+      body: MultiBlocProvider(
+        providers: [
+          BlocProvider<DishCubit>(
+            create: (context) => DishCubit(DishService()),
+          ),
+          BlocProvider<CartCubit>(
+            create: (context) => CartCubit(),
+          ),
+        ],
         child: const DishViewBody(),
       ),
     );
@@ -122,6 +130,7 @@ class _DishListWidgetState extends State<DishListWidget> {
   }
 
   Future<dynamic> dishDialog(BuildContext context, Dish dish) {
+    final cartCubit = BlocProvider.of<CartCubit>(context);
     return showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -223,7 +232,9 @@ class _DishListWidgetState extends State<DishListWidget> {
                 ),
                 const SizedBox(height: 16.0),
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    cartCubit.addToCart(dish);
+                  },
                   style: ElevatedButton.styleFrom(
                     fixedSize: const Size(311, 48),
                     backgroundColor: const Color(0xff3364E0),
