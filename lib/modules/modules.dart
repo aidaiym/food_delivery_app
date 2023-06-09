@@ -1,2 +1,3 @@
 export 'main/main_module.dart';
-export 'food/food.dart';
+export 'category/category.dart';
+export 'dish/dish.dart';

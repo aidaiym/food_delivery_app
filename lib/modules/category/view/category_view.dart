@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:food_delivery_app/modules/food/logic/category_cubit.dart';
-import 'package:food_delivery_app/modules/food/service/category_service.dart';
 import 'package:intl/intl.dart';
-import '../../../core/core.dart';
-import '../../../models/category_model.dart';
-import 'cat_det.dart';
+import '../../../export_files.dart';
 
 class CategoryView extends StatelessWidget {
   const CategoryView({super.key});
@@ -128,8 +124,7 @@ class _CategoryListWidgetState extends State<CategoryListWidget> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) =>
-                        CategoryDetailPage(category: category),
+                    builder: (context) => DishListView(category: category),
                   ),
                 );
               },
