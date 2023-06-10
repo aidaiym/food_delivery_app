@@ -53,12 +53,14 @@ class _DishViewBodyState extends State<DishViewBody> {
   @override
   void initState() {
     context.read<DishCubit>().getDishe();
+
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: BlocBuilder<DishCubit, DishState>(
         builder: (context, state) {
           switch (state.status) {
@@ -87,46 +89,93 @@ class DishListWidget extends StatefulWidget {
 }
 
 class _DishListWidgetState extends State<DishListWidget> {
+  final List<String> tags = [
+    'Все меню',
+    'С рисом',
+    'Салаты',
+    'С рыбой',
+  ];
+  String selectedTag = 'Все меню';
+
   @override
   Widget build(BuildContext context) {
-    return GridView.builder(
-        padding: const EdgeInsets.all(8),
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 3,
-          crossAxisSpacing: 5.0,
-          mainAxisSpacing: 5.0,
-          childAspectRatio: 0.8,
-        ),
-        itemCount: widget.dishes.length,
-        itemBuilder: (context, index) {
-          Dish dish = widget.dishes[index];
-          return GestureDetector(
-            onTap: () {
-              dishDialog(context, dish);
-            },
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                    width: 109,
-                    height: 110,
-                    decoration: BoxDecoration(
-                      color: const Color(0xffD8D8D8),
-                      borderRadius: BorderRadius.circular(10),
+    return Column(
+      children: [
+        SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Row(
+            children: tags.map((tag) {
+              return Container(
+                margin: const EdgeInsets.all(8.0),
+                height: 35,
+                child: InkWell(
+                  onTap: () {
+                    setState(() {
+                      selectedTag = tag;
+                    });
+                    context.read<DishCubit>().filterDishesByTag(tag);
+                  },
+                  child: Chip(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0),
                     ),
-                    child: Image.network(dish.imageUrl)),
-                SizedBox(
-                  width: 109,
-                  height: 30,
-                  child: Text(
-                    dish.name,
-                    style: const TextStyle(fontSize: 14.0),
+                    label: Text(tag),
+                    elevation: 2.0,
+                    backgroundColor: selectedTag == tag
+                        ? const Color(0xff3364E0)
+                        : Colors.white,
+                    labelStyle: TextStyle(
+                        color: selectedTag == tag ? Colors.white : Colors.black,
+                        fontSize: 14),
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
                   ),
                 ),
-              ],
-            ),
-          );
-        });
+              );
+            }).toList(),
+          ),
+        ),
+        Expanded(
+          child: GridView.builder(
+              padding: const EdgeInsets.all(8),
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 3,
+                crossAxisSpacing: 5.0,
+                mainAxisSpacing: 5.0,
+                childAspectRatio: 0.8,
+              ),
+              itemCount: widget.dishes.length,
+              itemBuilder: (context, index) {
+                Dish dish = widget.dishes[index];
+                return GestureDetector(
+                  onTap: () {
+                    dishDialog(context, dish);
+                  },
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                          width: 109,
+                          height: 110,
+                          decoration: BoxDecoration(
+                            color: const Color(0xffD8D8D8),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: Image.network(dish.imageUrl)),
+                      SizedBox(
+                        width: 109,
+                        height: 30,
+                        child: Text(
+                          dish.name,
+                          style: const TextStyle(fontSize: 14.0),
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+              }),
+        ),
+      ],
+    );
   }
 
   Future<dynamic> dishDialog(BuildContext context, Dish dish) {

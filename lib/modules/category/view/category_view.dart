@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
 import '../../../export_files.dart';
+// import '../logic/location_cubit.dart';
 
 class CategoryView extends StatelessWidget {
   const CategoryView({super.key});
@@ -37,6 +38,7 @@ class _CategoryViewBodyState extends State<CategoryViewBody> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
+        foregroundColor: Colors.black,
         elevation: 0,
         title: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -47,11 +49,20 @@ class _CategoryViewBodyState extends State<CategoryViewBody> {
                 SvgPicture.asset('assets/icons/location.svg'),
                 const Padding(
                   padding: EdgeInsets.all(8.0),
-                  child: Text(
-                    'Location of Phone',
-                    style: TextStyle(color: Colors.black, fontSize: 18),
-                  ),
+                  child: Text('location'),
                 ),
+                // Padding(
+                //   padding: const EdgeInsets.all(8.0),
+                //   child: BlocBuilder<LocationCubit, String>(
+                //     builder: (context, location) {
+                //       return Text(
+                //         location,
+                //         style:
+                //             const TextStyle(color: Colors.black, fontSize: 18),
+                //       );
+                //     },
+                //   ),
+                // ),
               ],
             ),
             Padding(
@@ -118,7 +129,7 @@ class _CategoryListWidgetState extends State<CategoryListWidget> {
         itemBuilder: (context, index) {
           Category category = widget.categories[index];
           return Padding(
-            padding: const EdgeInsets.all(28.0),
+            padding: const EdgeInsets.all(20.0),
             child: GestureDetector(
               onTap: () {
                 Navigator.push(
