@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../export_files.dart';
-import '../../basket/view/cart_view.dart';
+import '../../cart/view/cart_view.dart';
 
 class TabNavigator extends StatelessWidget {
   const TabNavigator(
