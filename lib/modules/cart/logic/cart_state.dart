@@ -9,14 +9,18 @@ class CartItem {
 
 class CartState extends Equatable {
   final List<CartItem> items;
+
   const CartState(this.items);
+
   double get totalCost {
     return items.fold(
-        0, (sum, item) => sum + (item.dish.price * item.quantity));
+      0,
+      (sum, item) => sum + (item.dish.price * item.quantity),
+    );
   }
 
   @override
-  List<Object> get props => [items.length, items];
+  List<Object> get props => [items];
 }
 
 abstract class CartEvent extends Equatable {

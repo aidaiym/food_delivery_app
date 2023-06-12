@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
 
 import '../../../export_files.dart';
@@ -30,43 +29,7 @@ class _CategoryViewBodyState extends State<CategoryViewBody> {
         backgroundColor: Colors.white,
         foregroundColor: Colors.black,
         elevation: 0,
-        title: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                SvgPicture.asset('assets/icons/location.svg'),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: FutureBuilder<String?>(
-                    future: getUserCity(),
-                    builder: (context, snapshot) {
-                      if (snapshot.connectionState == ConnectionState.waiting) {
-                        return const Text(
-                          AppString.loading,
-                          style: AppTextStyles.headline1,
-                        );
-                      } else {
-                        return Text(
-                          snapshot.data!,
-                          style: AppTextStyles.headline1,
-                        );
-                      }
-                    },
-                  ),
-                ),
-              ],
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 24.0),
-              child: Text(
-                currentDate,
-                style: AppTextStyles.subHead,
-              ),
-            ),
-          ],
-        ),
+        title: MainAppBar(currentDate: currentDate),
         actions: const [
           Padding(
             padding: EdgeInsets.only(right: 18.0),

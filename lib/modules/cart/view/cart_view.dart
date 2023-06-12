@@ -1,50 +1,58 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 
-import '../logic/cart_cubit.dart';
+import '../../../export_files.dart';
 
-class BasketView extends StatelessWidget {
-  const BasketView({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => CartCubit(),
-      child: const CartPage(),
-    );
-  }
-}
-
-class CartPage extends StatelessWidget {
-  const CartPage({super.key});
+class CartView extends StatelessWidget {
+  const CartView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final cartCubit = BlocProvider.of<CartCubit>(context);
-
+    String currentDate =
+        DateFormat(AppString.dateTimeFormat).format(DateTime.now());
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        title: const Text('Cart'),
+        backgroundColor: Colors.white,
+        foregroundColor: Colors.black,
+        elevation: 0,
+        title: MainAppBar(
+          currentDate: currentDate,
+        ),
+        actions: const [
+          Padding(
+            padding: EdgeInsets.only(right: 18.0),
+            child: SizedBox(
+              width: 44,
+              child: CircleAvatar(
+                backgroundImage: AssetImage('assets/images/user_avatar.png'),
+                radius: 16,
+              ),
+            ),
+          ),
+        ],
       ),
       body: BlocBuilder<CartCubit, CartState>(
         builder: (context, state) {
           return ListView.builder(
+            padding: const EdgeInsets.all(10),
             itemCount: state.items.length,
             itemBuilder: (context, index) {
               final item = state.items[index];
               return ListTile(
-                leading: Image.asset(
+                leading: Image.network(
                   item.dish.imageUrl,
                   width: 50,
                   height: 50,
                   fit: BoxFit.cover,
                 ),
                 title: Text(item.dish.name),
-                subtitle: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                subtitle: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text('Cost: \$${item.dish.price.toStringAsFixed(2)}'),
-                    Text('Weight: ${item.dish.weight.toStringAsFixed(2)}g'),
+                    Text('${item.dish.price.toStringAsFixed(2)} ₽'),
+                    Text('${item.dish.weight.toStringAsFixed(2)} г'),
                   ],
                 ),
                 trailing: Row(
@@ -54,10 +62,11 @@ class CartPage extends StatelessWidget {
                       icon: const Icon(Icons.remove),
                       onPressed: () {
                         if (item.quantity > 1) {
-                          cartCubit.updateCartItem(
-                              item.dish, item.quantity - 1);
+                          BlocProvider.of<CartCubit>(context)
+                              .updateCartItem(item.dish, item.quantity - 1);
                         } else {
-                          cartCubit.removeFromCart(item.dish);
+                          BlocProvider.of<CartCubit>(context)
+                              .removeFromCart(item.dish);
                         }
                       },
                     ),
@@ -65,7 +74,8 @@ class CartPage extends StatelessWidget {
                     IconButton(
                       icon: const Icon(Icons.add),
                       onPressed: () {
-                        cartCubit.updateCartItem(item.dish, item.quantity + 1);
+                        BlocProvider.of<CartCubit>(context)
+                            .updateCartItem(item.dish, item.quantity + 1);
                       },
                     ),
                   ],
@@ -77,22 +87,11 @@ class CartPage extends StatelessWidget {
       ),
       bottomNavigationBar: BlocBuilder<CartCubit, CartState>(
         builder: (context, state) {
-          return Container(
+          return Padding(
             padding: const EdgeInsets.all(16.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  'Total: \$${state.totalCost.toStringAsFixed(2)}',
-                  style: const TextStyle(fontSize: 18),
-                ),
-                ElevatedButton(
-                  child: const Text('Pay'),
-                  onPressed: () {
-                    // Handle payment logic here
-                  },
-                ),
-              ],
+            child: MainButton(
+              onTap: () {},
+              buttonText: 'Оплатить: \$${state.totalCost.toStringAsFixed(2)}',
             ),
           );
         },

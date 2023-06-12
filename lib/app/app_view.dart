@@ -1,16 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'export_files.dart';
+import 'package:food_delivery_app/app/rountes.dart';
+
+import '../export_files.dart';
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  MyApp({Key? key}) : super(key: key);
+  final AppRouter _appRouter = AppRouter();
+
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<CartCubit>(
+    return BlocProvider(
       create: (context) => CartCubit(),
-      child: const MaterialApp(
+      child: MaterialApp(
         title: 'Food Delivery App',
-        home: MainView(),
+        onGenerateRoute: _appRouter.onGenerateRoute,
       ),
     );
   }

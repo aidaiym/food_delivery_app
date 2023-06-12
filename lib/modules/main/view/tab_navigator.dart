@@ -17,7 +17,7 @@ class TabNavigator extends StatelessWidget {
     } else if (tabItem == "Search") {
       child = const CategoryView();
     } else if (tabItem == "Basket") {
-      child = const BasketView();
+      child = const CartView();
     } else if (tabItem == "Account") {
       child = const CategoryView();
     }

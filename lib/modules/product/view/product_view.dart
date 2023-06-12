@@ -10,7 +10,7 @@ class DishView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: BlocProvider<DishCubit>(
+      body: BlocProvider(
         create: (context) => DishCubit(DishService()),
         child: const DishViewBody(),
       ),

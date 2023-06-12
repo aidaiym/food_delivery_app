@@ -3,4 +3,4 @@ export 'constants/constants.dart';
 export 'core/core.dart';
 export 'models/models.dart';
 export 'modules/modules.dart';
-export 'app_view.dart';
+export 'app/app_view.dart';
