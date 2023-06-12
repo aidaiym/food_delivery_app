@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../export_files.dart';
-part 'dish_state.dart';
+part 'product_state.dart';
 
 class DishCubit extends Cubit<DishState> {
   DishCubit(this.dishService) : super(const DishState());
