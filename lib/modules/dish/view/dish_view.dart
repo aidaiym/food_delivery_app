@@ -10,33 +10,8 @@ class DishView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        foregroundColor: Colors.black,
-        backgroundColor: Colors.white,
-        elevation: 0,
-        title: Text(category.name),
-        actions: const [
-          Padding(
-            padding: EdgeInsets.only(right: 18.0),
-            child: SizedBox(
-              width: 44,
-              child: CircleAvatar(
-                backgroundImage: AssetImage('assets/images/user_avatar.png'),
-                radius: 16,
-              ),
-            ),
-          ),
-        ],
-      ),
-      body: MultiBlocProvider(
-        providers: [
-          BlocProvider<DishCubit>(
-            create: (context) => DishCubit(DishService()),
-          ),
-          BlocProvider<CartCubit>(
-            create: (context) => CartCubit(),
-          ),
-        ],
+      body: BlocProvider<DishCubit>(
+        create: (context) => DishCubit(DishService()),
         child: const DishViewBody(),
       ),
     );

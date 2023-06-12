@@ -32,7 +32,7 @@ class _DishViewBodyState extends State<DishViewBody> {
               child: Text(AppString.error),
             );
           } else if (state.status == FetchStatus.success) {
-            return DishListWidget(state.dishes ?? []);
+            return DishSuccessView(state.dishes ?? []);
           } else {
             return Container();
           }

@@ -7,19 +7,6 @@ class DishCubit extends Cubit<DishState> {
   DishCubit(this.dishService) : super(const DishState());
 
   final DishService dishService;
-  List<Dish>? filteredDishes;
-
-// filter by Tag
-  void filterDishesByTag(String tag) {
-    List<Dish> filteredDishes = [];
-    if (tag == 'Все меню') {
-      emit(state.copyWith(status: FetchStatus.success, dishes: state.dishes));
-    } else {
-      filteredDishes =
-          state.dishes!.where((dish) => dish.tegs.contains(tag)).toList();
-      emit(state.copyWith(status: FetchStatus.success, dishes: filteredDishes));
-    }
-  }
 
   Future<void> getDishe() async {
     final dishes = await dishService.getDishes();
