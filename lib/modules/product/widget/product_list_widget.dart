@@ -1,18 +1,20 @@
+// ignore_for_file: no_logic_in_create_state
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../export_files.dart';
 
-class DishSuccessView extends StatefulWidget {
-  const DishSuccessView(this.dishes, {Key? key, required this.category})
+class ProductSuccessView extends StatefulWidget {
+  const ProductSuccessView(this.dishes, {Key? key, required this.category})
       : super(key: key);
   final List<Dish> dishes;
   final Category category;
   @override
-  State<DishSuccessView> createState() => _DishSuccessViewState(category);
+  State<ProductSuccessView> createState() => _ProductSuccessViewState(category);
 }
 
-class _DishSuccessViewState extends State<DishSuccessView>
+class _ProductSuccessViewState extends State<ProductSuccessView>
     with TickerProviderStateMixin {
   final List<String> tags = [
     'Все меню',
@@ -24,7 +26,7 @@ class _DishSuccessViewState extends State<DishSuccessView>
   late TabController _tabController;
   final Category category;
 
-  _DishSuccessViewState(this.category);
+  _ProductSuccessViewState(this.category);
 
   @override
   void initState() {
@@ -40,7 +42,7 @@ class _DishSuccessViewState extends State<DishSuccessView>
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<DishCubit, DishState>(
+    return BlocBuilder<ProductCubit, ProductState>(
       builder: (context, state) {
         return Scaffold(
           appBar: AppBar(
@@ -109,7 +111,7 @@ class _DishSuccessViewState extends State<DishSuccessView>
                   Dish dish = filteredDishes[index];
                   return GestureDetector(
                     onTap: () {
-                      dishDialog(context, dish);
+                      productDialog(context, dish);
                     },
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,

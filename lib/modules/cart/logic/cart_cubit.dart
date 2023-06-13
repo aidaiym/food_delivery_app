@@ -24,7 +24,7 @@ class CartCubit extends Cubit<CartState> {
         emit(cartState);
       }
     } catch (e) {
-      print('Error loading cart state: $e');
+      throw Exception('Error $e ');
     }
   }
 
@@ -34,7 +34,7 @@ class CartCubit extends Cubit<CartState> {
       final cartJson = jsonEncode(state.toJson());
       await prefs.setString(_cartKey, cartJson);
     } catch (e) {
-      print('Error saving cart state: $e');
+      throw Exception('Error $e ');
     }
   }
 

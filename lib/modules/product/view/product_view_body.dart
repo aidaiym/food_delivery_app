@@ -3,21 +3,22 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../export_files.dart';
 
-class DishViewBody extends StatefulWidget {
-  const DishViewBody({super.key, required this.category});
+class ProductViewBody extends StatefulWidget {
+  const ProductViewBody({super.key, required this.category});
   final Category category;
   @override
-  State<DishViewBody> createState() => _DishViewBodyState(category);
+  // ignore: no_logic_in_create_state
+  State<ProductViewBody> createState() => _ProductViewBodyState(category);
 }
 
-class _DishViewBodyState extends State<DishViewBody> {
+class _ProductViewBodyState extends State<ProductViewBody> {
   final Category category;
 
-  _DishViewBodyState(this.category);
+  _ProductViewBodyState(this.category);
 
   @override
   void initState() {
-    context.read<DishCubit>().getDishe();
+    context.read<ProductCubit>().getDishe();
     super.initState();
   }
 
@@ -25,7 +26,7 @@ class _DishViewBodyState extends State<DishViewBody> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: BlocBuilder<DishCubit, DishState>(
+      body: BlocBuilder<ProductCubit, ProductState>(
         builder: (context, state) {
           if (state.status == FetchStatus.loading) {
             return const Center(
@@ -36,7 +37,7 @@ class _DishViewBodyState extends State<DishViewBody> {
               child: Text(AppString.error),
             );
           } else if (state.status == FetchStatus.success) {
-            return DishSuccessView(
+            return ProductSuccessView(
               state.dishes ?? [],
               category: category,
             );

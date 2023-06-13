@@ -1,5 +1,6 @@
 part of 'cart_cubit.dart';
 
+// ignore: must_be_immutable
 class CartItem extends Equatable {
   final Dish dish;
   int quantity;

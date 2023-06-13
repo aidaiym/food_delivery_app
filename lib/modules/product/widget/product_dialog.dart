@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../export_files.dart';
 
-Future<dynamic> dishDialog(BuildContext context, Dish dish) {
+Future<dynamic> productDialog(BuildContext context, Dish dish) {
   final cartCubit = BlocProvider.of<CartCubit>(context);
   return showDialog(
     context: context,

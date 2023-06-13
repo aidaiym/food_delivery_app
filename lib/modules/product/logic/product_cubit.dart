@@ -3,10 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../export_files.dart';
 part 'product_state.dart';
 
-class DishCubit extends Cubit<DishState> {
-  DishCubit(this.dishService) : super(const DishState());
+class ProductCubit extends Cubit<ProductState> {
+  ProductCubit(this.dishService) : super(const ProductState());
 
-  final DishService dishService;
+  final ProductService dishService;
 
   Future<void> getDishe() async {
     final dishes = await dishService.getDishes();

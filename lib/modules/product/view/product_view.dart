@@ -11,8 +11,8 @@ class DishView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: BlocProvider(
-        create: (context) => DishCubit(DishService()),
-        child: DishViewBody(category: category),
+        create: (context) => ProductCubit(ProductService()),
+        child: ProductViewBody(category: category),
       ),
     );
   }
