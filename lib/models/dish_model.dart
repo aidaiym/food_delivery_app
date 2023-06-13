@@ -5,7 +5,7 @@ class Dish {
   final int weight;
   final String description;
   final String imageUrl;
-  final List<String> tegs;
+  final List<String> tags;
 
   Dish({
     required this.id,
@@ -14,8 +14,20 @@ class Dish {
     required this.weight,
     required this.description,
     required this.imageUrl,
-    required this.tegs,
+    required this.tags,
   });
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'name': name,
+      'price': price,
+      'weight': weight,
+      'description': description,
+      'image_url': imageUrl,
+      'tegs': tags,
+    };
+  }
 
   factory Dish.fromJson(Map<String, dynamic> json) {
     return Dish(
@@ -25,7 +37,7 @@ class Dish {
       weight: json['weight'],
       description: json['description'],
       imageUrl: json['image_url'],
-      tegs: List<String>.from(json['tegs']),
+      tags: List<String>.from(json['tegs']),
     );
   }
 }

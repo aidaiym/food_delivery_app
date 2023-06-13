@@ -9,9 +9,10 @@ class DishService {
     final response = await http.get(Uri.parse(apiUrl));
     if (response.statusCode == 200) {
       final jsonData = json.decode(response.body);
-      final dishes = List<Dish>.from(jsonData['dishes'].map(
-        (dishData) => Dish.fromJson(dishData),
-      ));
+      final dishesData = jsonData['dishes'] as List<dynamic>;
+      final dishes = dishesData
+          .map((dishData) => Dish.fromJson(dishData as Map<String, dynamic>))
+          .toList();
       return dishes;
     } else {
       throw Exception('Failed to fetch dishes');

@@ -1,57 +1,59 @@
 part of 'cart_cubit.dart';
 
-class CartItem {
+class CartItem extends Equatable {
   final Dish dish;
   int quantity;
 
   CartItem(this.dish, this.quantity);
+
+  @override
+  List<Object?> get props => [dish, quantity];
+
+  int get totalCost {
+    return (dish.price * quantity).round();
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'dish': dish.toJson(),
+      'quantity': quantity,
+    };
+  }
+
+  factory CartItem.fromJson(Map<String, dynamic> json) {
+    final dishJson = json['dish'] as Map<String, dynamic>;
+    final dish = Dish.fromJson(dishJson);
+    final quantity = json['quantity'] as int;
+    return CartItem(dish, quantity);
+  }
 }
 
 class CartState extends Equatable {
   final List<CartItem> items;
+  final double totalCost;
 
-  const CartState(this.items);
+  const CartState(this.items, this.totalCost);
 
-  double get totalCost {
-    return items.fold(
-      0,
-      (sum, item) => sum + (item.dish.price * item.quantity),
-    );
+  double get totalQuantity {
+    return items.fold(0, (sum, item) => sum + item.quantity);
   }
 
   @override
-  List<Object> get props => [items];
-}
+  List<Object?> get props => [items, totalCost];
 
-abstract class CartEvent extends Equatable {
-  @override
-  List<Object> get props => [];
-}
+  Map<String, dynamic> toJson() {
+    return {
+      'items': items.map((item) => item.toJson()).toList(),
+      'totalCost': totalCost,
+    };
+  }
 
-class AddToCartEvent extends CartEvent {
-  final Dish dish;
-
-  AddToCartEvent(this.dish);
-
-  @override
-  List<Object> get props => [dish];
-}
-
-class UpdateCartItemEvent extends CartEvent {
-  final Dish dish;
-  final int quantity;
-
-  UpdateCartItemEvent(this.dish, this.quantity);
-
-  @override
-  List<Object> get props => [dish, quantity];
-}
-
-class RemoveFromCartEvent extends CartEvent {
-  final Dish dish;
-
-  RemoveFromCartEvent(this.dish);
-
-  @override
-  List<Object> get props => [dish];
+  factory CartState.fromJson(Map<String, dynamic> json) {
+    final itemsJson = json['items'] as List<dynamic>;
+    final items =
+        itemsJson.map((itemJson) => CartItem.fromJson(itemJson)).toList();
+    final totalCost =
+        json['totalCost'] as double? ?? 0.0; // Provide a default value if null
+    return CartState(items, totalCost);
+  }
 }

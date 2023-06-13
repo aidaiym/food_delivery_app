@@ -11,15 +11,14 @@ class CartView extends StatelessWidget {
   Widget build(BuildContext context) {
     String currentDate =
         DateFormat(AppString.dateTimeFormat).format(DateTime.now());
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
         foregroundColor: Colors.black,
         elevation: 0,
-        title: MainAppBar(
-          currentDate: currentDate,
-        ),
+        title: MainAppBar(currentDate: currentDate),
         actions: const [
           Padding(
             padding: EdgeInsets.only(right: 18.0),
@@ -61,9 +60,10 @@ class CartView extends StatelessWidget {
                     IconButton(
                       icon: const Icon(Icons.remove),
                       onPressed: () {
-                        if (item.quantity > 1) {
+                        final updatedQuantity = item.quantity - 1;
+                        if (updatedQuantity > 0) {
                           BlocProvider.of<CartCubit>(context)
-                              .updateCartItem(item.dish, item.quantity - 1);
+                              .updateCartItem(item.dish, updatedQuantity);
                         } else {
                           BlocProvider.of<CartCubit>(context)
                               .removeFromCart(item.dish);
@@ -74,8 +74,9 @@ class CartView extends StatelessWidget {
                     IconButton(
                       icon: const Icon(Icons.add),
                       onPressed: () {
+                        final updatedQuantity = item.quantity + 1;
                         BlocProvider.of<CartCubit>(context)
-                            .updateCartItem(item.dish, item.quantity + 1);
+                            .updateCartItem(item.dish, updatedQuantity);
                       },
                     ),
                   ],
@@ -91,7 +92,7 @@ class CartView extends StatelessWidget {
             padding: const EdgeInsets.all(16.0),
             child: MainButton(
               onTap: () {},
-              buttonText: 'Оплатить: \$${state.totalCost.toStringAsFixed(2)}',
+              buttonText: 'Оплатить: ${state.totalCost.toStringAsFixed(2)}',
             ),
           );
         },
