@@ -7,12 +7,12 @@ class AppTextStyles {
     fontWeight: FontWeight.w500,
     fontFamily: 'mainFont',
   );
-  static const headline2 = TextStyle(
-    fontSize: 20,
-    color: Colors.black,
-    fontWeight: FontWeight.w500,
-    fontFamily: 'mainFont',
-  );
+  // static const headline2 = TextStyle(
+  //   fontSize: 20,
+  //   color: Colors.black,
+  //   fontWeight: FontWeight.w500,
+  //   fontFamily: 'mainFont',
+  // );
   static final subHead = TextStyle(
     fontSize: 14,
     color: Colors.black.withOpacity(0.5),
