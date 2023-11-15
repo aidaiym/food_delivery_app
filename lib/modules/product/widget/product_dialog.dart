@@ -31,7 +31,7 @@ Future<dynamic> productDialog(BuildContext context, Dish dish) {
                     Align(
                       alignment: Alignment.center,
                       child: Image.network(
-                        dish.imageUrl,
+                        dish.imageUrl!,
                         width: 311,
                         height: 204,
                       ),
@@ -79,7 +79,7 @@ Future<dynamic> productDialog(BuildContext context, Dish dish) {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Text(
-                    dish.name,
+                    dish.name!,
                     style: const TextStyle(
                         fontSize: 16.0, fontWeight: FontWeight.bold),
                   ),

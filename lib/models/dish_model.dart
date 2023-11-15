@@ -1,20 +1,20 @@
 class Dish {
-  final int id;
-  final String name;
-  final int price;
-  final int weight;
-  final String description;
-  final String imageUrl;
-  final List<String> tags;
+  final int? id;
+  final String? name;
+  final int? price;
+  final int? weight;
+  final String? description;
+  final String? imageUrl;
+  final List<String>? tags;
 
   Dish({
-    required this.id,
-    required this.name,
-    required this.price,
-    required this.weight,
-    required this.description,
-    required this.imageUrl,
-    required this.tags,
+     this.id,
+     this.name,
+     this.price,
+     this.weight,
+     this.description,
+     this.imageUrl,
+     this.tags,
   });
 
   Map<String, dynamic> toJson() {

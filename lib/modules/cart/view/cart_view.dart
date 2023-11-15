@@ -41,17 +41,17 @@ class CartView extends StatelessWidget {
               final item = state.items[index];
               return ListTile(
                 leading: Image.network(
-                  item.dish.imageUrl,
+                  item.dish.imageUrl!,
                   width: 50,
                   height: 50,
                   fit: BoxFit.cover,
                 ),
-                title: Text(item.dish.name),
+                title: Text(item.dish.name!),
                 subtitle: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text('${item.dish.price.toStringAsFixed(2)} ₽'),
-                    Text('${item.dish.weight.toStringAsFixed(2)} г'),
+                    Text('${item.dish.price!.toStringAsFixed(2)} ₽'),
+                    Text('${item.dish.weight!.toStringAsFixed(2)} г'),
                   ],
                 ),
                 trailing: Row(

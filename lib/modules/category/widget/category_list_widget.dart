@@ -23,34 +23,31 @@ class _CategoryListWidgetState extends State<CategoryListWidget> {
           return Padding(
             padding: const EdgeInsets.symmetric(vertical: 4.0),
             child: GestureDetector(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => DishView(
-                      category: category,
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => DishView(
+                        category: category,
+                      ),
                     ),
+                  );
+                },
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                  
+                    children: [
+                      Image.network(
+                        category.imageUrl,
+                        width: 353,
+                        height: 158,
+                      ),
+                      const SizedBox(height: 10),
+                      Text(category.name, style: AppTextStyles.headline1),
+                    ],
                   ),
-                );
-              },
-              child: Center(
-                child: Stack(
-                  children: [
-                    Image.network(
-                      category.imageUrl,
-                      width: 353,
-                      height: 158,
-                    ),
-                    Positioned(
-                      top: 20,
-                      left: 20,
-                      child:
-                          Text(category.name, style: AppTextStyles.headline2),
-                    ),
-                  ],
-                ),
-              ),
-            ),
+                )),
           );
         });
   }

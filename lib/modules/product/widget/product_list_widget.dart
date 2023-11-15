@@ -95,9 +95,7 @@ class _ProductSuccessViewState extends State<ProductSuccessView>
           body: IndexedStack(
             index: _tabController.index,
             children: tags.map((tag) {
-              final filteredDishes = widget.dishes
-                  .where((dish) => dish.tags.contains(tag))
-                  .toList();
+            
               return GridView.builder(
                 padding: const EdgeInsets.all(8),
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -106,9 +104,9 @@ class _ProductSuccessViewState extends State<ProductSuccessView>
                   mainAxisSpacing: 5.0,
                   childAspectRatio: 0.8,
                 ),
-                itemCount: filteredDishes.length,
+                itemCount: widget.dishes.length,
                 itemBuilder: (context, index) {
-                  Dish dish = filteredDishes[index];
+                  Dish dish = widget.dishes[index];
                   return GestureDetector(
                     onTap: () {
                       productDialog(context, dish);
@@ -123,13 +121,13 @@ class _ProductSuccessViewState extends State<ProductSuccessView>
                             color: AppColors.cWhite,
                             borderRadius: BorderRadius.circular(10),
                           ),
-                          child: Image.network(dish.imageUrl),
+                          child: Image.network(dish.imageUrl!),
                         ),
                         SizedBox(
                           width: 109,
                           height: 30,
                           child: Text(
-                            dish.name,
+                            dish.name!,
                             style: const TextStyle(fontSize: 14.0),
                           ),
                         ),

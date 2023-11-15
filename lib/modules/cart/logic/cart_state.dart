@@ -11,7 +11,7 @@ class CartItem extends Equatable {
   List<Object?> get props => [dish, quantity];
 
   int get totalCost {
-    return (dish.price * quantity).round();
+    return (dish.price! * quantity).round();
   }
 
   Map<String, dynamic> toJson() {
